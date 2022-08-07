@@ -1,3 +1,36 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "standard",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:react/recommended",
+    "next/core-web-vitals"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["@typescript-eslint", "sonarjs"],
+  "rules": {
+    "max-lines": [
+      "error",
+      { "max": 50, "skipBlankLines": true, "skipComments": true }
+    ],
+    "max-lines-per-function": ["error", { "max": 30, "skipBlankLines": true }],
+    "complexity": ["error", { "max": 3 }],
+    "max-depth": ["error", 2],
+    "max-nested-callbacks": ["error", 2],
+    "max-params": ["error", 3],
+    "max-statements": ["error", 15],
+    "sonarjs/cognitive-complexity": "error",
+    "sonarjs/no-identical-expressions": "error",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+  }
 }
