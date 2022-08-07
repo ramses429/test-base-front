@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { FormBase } from "../FormBase";
-import { Button } from "@mui/material";
-import { Box } from "@mui/system";
 import { initialStateForm } from "./initialState";
 import { IvaluesInputs, IvaluesInputsType } from "./interfaces";
 import { getRamdomUser } from "./functions/getRamdomUser";
+import { ActionFormGenerateRamdonDataTemplate } from "./index.template";
 
 export function ActionFormGenerateRamdonData() {
   const [ramdomData, setRamdomData] = useState<IvaluesInputs>(initialStateForm);
+  const [loader, setLader] = useState<boolean>(false);
   async function setRamdomUserButtonCall() {
+    setLader(true);
     const ramdomUser = await getRamdomUser();
     setRamdomData(ramdomUser);
+    setLader(false);
   }
   function updateIndividualField(
     name: IvaluesInputsType,
@@ -23,16 +24,11 @@ export function ActionFormGenerateRamdonData() {
     });
   }
   return (
-    <>
-      <FormBase
-        valuesInputs={ramdomData}
-        updateIndividualField={updateIndividualField}
-      />
-      <Box sx={{ pt: 5 }}>
-        <Button onClick={setRamdomUserButtonCall} variant="contained">
-          Create random data
-        </Button>
-      </Box>
-    </>
+    <ActionFormGenerateRamdonDataTemplate
+      ramdomData={ramdomData}
+      updateIndividualField={updateIndividualField}
+      setRamdomUserButtonCall={setRamdomUserButtonCall}
+      openModalLoader={loader}
+    />
   );
 }
